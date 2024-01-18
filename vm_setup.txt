@@ -1,0 +1,103 @@
+wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
+sudo dpkg -i google-chrome-stable_current_amd64.deb
+
+cd ~
+rm -rf Documents
+rm -rf Music
+rm -rf Pictures
+rm -rf Public
+rm -rf Templates
+rm -rf Videos
+
+sudo apt update
+sudo apt install -y vim-gtk3
+
+touch ~/.bash_aliases
+
+#Add the alias to ~/.bash_aliases
+alias vi='gvim'
+
+sudo apt install -y curl
+
+sudo apt install -y meld
+
+sudo apt install -y net-tools
+
+sudo apt install -y git
+
+# This also installs automake
+sudo apt install autoconf 
+
+sudo apt install -y gcc
+
+sudo apt install -y libpcap-dev
+
+sudo apt install -y make
+ 
+
+Create a Shared file.
+
+In Windows
+
+Create C:\Users\danb\Shared
+
+In Virtual Box
+Before Starting the VM Selected "Shared Folders" and Add New Shared Folder
+
+For "Folder Path" put "C:\Users\danb\Shared"
+
+For "Folder Name" put "Shared"
+
+Select "Make Permanent"
+
+
+Start the VM and then at the top Menu select "Devices" -> "Insert Guest
+Additions CD Image..."
+
+This will start and install Guest Additions.  It will prompt for the root
+password.
+
+After installation add the following line to the fstab
+
+
+Shared  /home/dberger/Shared vboxsf defaults,uid=1000,gid=1000 0  0
+
+mkdir -p /home/dberger/Shared
+
+sudo adduser dberger vsboxsf
+
+Restart VM
+
+
+Disable Screen Lock
+"Settings"->"Power"->Blank Screen" set to "Never"
+
+Create Some Capture directories for logs and screenshots
+mkdir -p Captures/Screenshots
+mkdir -p Captures/Logs
+
+Change the gnome-printscreen to $HOME/Captures/Screenshots
+gsettings set org.gnome.gnome-screenshot auto-save-directory
+"file:///home/$USER/Captures/Screenshots"
+
+The Go to Settings->Keyboard Shortcuts and disable "Save a screenshot of a
+window to dberger", "Save a screenshot to dberger" and "Save a screenshot of
+an area to dberger"
+
+Note: To disable them click each and in the "Set Shortcut" type a backspace.
+
+Then scroll to the bottom and Create three new Shortcuts:
+
+"Save an area screenshot to $HOME/Captures/Screenshots"
+gnome-screenshot -a
+Shift+Print
+
+"Save a screenshot to $HOME/Captures/Screenshots"
+gnome-screenshot
+Print
+
+"Save a window screenshot to $HOME/Captures/Screenshots"
+gnome-screenshot -w
+Alt+Print
+
+
