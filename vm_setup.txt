@@ -28,6 +28,10 @@ sudo apt install -y net-tools
 
 sudo apt install -y git
 
+#Configure git
+git config --global user.email "dan_r_berger@hotmail.com"
+git config --global user.name "IowaHawkeye"
+
 # This also installs automake
 sudo apt install autoconf 
 
