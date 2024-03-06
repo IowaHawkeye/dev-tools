@@ -15,6 +15,11 @@ touch ~/.bash_aliases
 #Add the alias to ~/.bash_aliases
 alias vi='gvim'
 
+# Make is so sudo doesn't require a password
+sudo visudo
+#Add the line
+dberger ALL=(ALL:ALL) NOPASSWD:ALL
+
 sudo apt install -y curl
 
 sudo apt install -y meld
@@ -31,6 +36,11 @@ sudo apt install -y gcc
 sudo apt install -y libpcap-dev
 
 sudo apt install -y make
+
+sudo apt install -y subversion
+
+sudo apt install -y python2
+
 
 # Install Chrome
 wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
@@ -101,4 +111,35 @@ Print
 gnome-screenshot -w
 Alt+Print
 
+Setup Docker
+# Update the apt package index and install packages to allow apt to use a repository over HTTPS
+sudo apt-get update
+sudo apt-get install ca-certificates curl gnupg lsb-release
 
+# Add Docker's official GPG key
+curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo gpg --dearmor -o /usr/share/keyrings/docker-archive-keyring.gpg
+ 
+# Setup the "stable" Docker apt repository
+echo   "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/docker-archive-keyring.gpg] https://download.docker.com/linux/ubuntu \
+  $(lsb_release -cs) stable" | sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
+
+# Install Docker engine
+sudo apt-get update
+sudo apt-get install -y docker-ce docker-ce-cli containerd.io
+
+# Verify Docker is installed correctly using the hello-world image
+sudo docker run hello-world
+
+# Install CA certificate for our internal docker image registry
+sudo mkdir -p /etc/docker/certs.d/yocto-mirror.apconnet.apcon.com:5000
+sudo wget -O /etc/docker/certs.d/yocto-mirror.apconnet.apcon.com:5000/ca.crt http://yocto-mirror.apconnet.apcon.com/dockerRegistry.crt
+sudo cp /etc/docker/certs.d/yocto-mirror.apconnet.apcon.com:5000/ca.crt /usr/local/share/ca-certificates/yocto-mirror.apconnet.apcon.com.crt
+sudo update-ca-certificates
+
+# Verify internal registry
+sudo docker run yocto-mirror.apconnet.apcon.com:5000/hello-apcon
+ 
+# Add yourself to the docker group so you don't have to use sudo every time you run an image
+sudo usermod -aG docker $USER
+ 
+# You will need to logout or reboot for the group cache to be updated.
