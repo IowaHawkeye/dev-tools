@@ -1,0 +1,13 @@
+filetype indent off
+
+if isdirectory($TAGS_DIR)
+echomsg "Setting Tags for: " . $TAGS_DIR
+let $ctagsfile = expand($TAGS_DIR) . "tags"
+let $cscopefile= expand($TAGS_DIR) . "cscope.out"
+echomsg "" . $ctagsfile
+set tags=$ctagsfile
+cs add $cscopefile
+else
+echomsg "TAGS_DIR is not set or does not exist! TAGS_DIR=" . $TAGS_DIR
+endif
+"set tags+=/home/dberger/workspace/br/4K_TRUNK/tags

@@ -37,6 +37,8 @@ sudo apt install autoconf
 
 sudo apt install -y gcc
 
+sudo apt install -y g++
+
 sudo apt install -y libpcap-dev
 
 sudo apt install -y make
@@ -147,3 +149,16 @@ sudo docker run yocto-mirror.apconnet.apcon.com:5000/hello-apcon
 sudo usermod -aG docker $USER
  
 # You will need to logout or reboot for the group cache to be updated.
+
+
+cd ~
+git clone -b v6.1.0 git@github.com:universal-ctags/ctags
+cd ctags
+./autogen.sh
+./configure
+make
+sudo make install
+cd /home/dberger/workspace/br/4K_TRUNK
+ctags -R --c++-kinds=+p --fields=+iaS --extra=+qf /home/dberger/workspace/br/4K_TRUNK
+
+
