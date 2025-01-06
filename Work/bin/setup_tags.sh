@@ -15,27 +15,20 @@ targets=(
 
 )
 
-target_args=""
-
-for target_list in "${!targets[@]}"; do
-   if [ "$target_args" == "" ]; then
-      target_args="$target_list"
-   else 
-      target_args+="|$target_list"
-   fi
-done
 
 Help()
 {
-   echo "This script will generate ctags and cscope tag files for various   "
-   echo "targets.  The results will be placed in $WORK_DIR/tags/<target>.   "
-   echo "After execution the user should set the $TAGS_DIR variable so the  "
-   echo ".vimrc file will load the appropriate tags files.                  "
+   echo "This script will generate ctags and cscope tag files for various     "
+   echo "targets.  The results will be placed in $WORK_DIR/tags/<target>.     "
+   echo "After execution the user should set the \$TAGS_DIR variable to       "
+   echo "$WORK_DIR/tags/<target> so the .vimrc file will load the             "
+   echo "appropriate tags files.                                              "
    echo
-   echo "Syntax: setup_tags.sh [-t|h]                                       "
-   echo "options:                                                           "
-   echo "-t $target_args    The target to create tags for.           "
-   echo "-h                     Print this help.                         "
+   echo "Syntax: setup_tags.sh [-c|b|h]                                       "
+   echo "options:                                                             "
+   echo "-b <BLADE>    Create tags for the specific blade (e.g. aci4130-e28-1)"
+   echo "-c            Create tags for the controller                         "
+   echo "-h            Print this help.                                       "
    echo
 
 }
@@ -47,28 +40,19 @@ if [ $# -le 0 ]; then
    exit
 fi
 
-while getopts "ht:b:" option; do
+while getopts "hcb:" option; do
    case $option in
       h)  # Display help
          Help
          exit;;
-      t)  # Which target
-         target=$OPTARG
-         found=0
-         for target_list in "${!targets[@]}"; do
-            if [ "$target" == "$target_list" ]; then
-               found=1
-               TAG_SUBDIR=$target
-               break
-            fi
-         done
 
-         if [ $found -ne 1 ]; then
-            echo "Invalid Target.  Options are $target_args"
-            exit
-         fi;;
-
+      c) # Controller
+         target="controller"
+         TAG_SUBDIR=$target
+         ;;
+ 
       b) # Which blade type
+         target="blade"
          blade=$OPTARG
          blade_opts=""
          found=0
