@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<TestData xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="testData.xsd">
+    <Chassis>
+        <Name>ACI-4040-C</Name>
+        <BaseBoard>
+            <BoardRevision>3</BoardRevision>
+            <SerialNumber>40020000</SerialNumber>
+        </BaseBoard>
+        <BladeControlBoard>
+            <SerialNumber>40420000</SerialNumber>
+        </BladeControlBoard>
+        <Controller>
+            <Name>ACI-4001-100</Name>
+        </Controller>
+        <LineCards>
+            <LineCard>
+                <Name>ACI-4235-E24-1</Name>
+                <Slot>A</Slot>
+                <BoardRevision>3</BoardRevision>
+                <SerialNumber>40300000</SerialNumber>
+            </LineCard>
+        </LineCards>
+        <FabricCards>
+            <Count>0</Count>
+        </FabricCards>
+    </Chassis>
+</TestData>

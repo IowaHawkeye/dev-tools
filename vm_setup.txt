@@ -118,6 +118,10 @@ Print
 gnome-screenshot -w
 Alt+Print
 
+# Display Apport (this is the app the reports system crashes)
+sudo vi /etc/default/apport
+change enable from 1 to 0
+
 Setup Docker
 # Update the apt package index and install packages to allow apt to use a repository over HTTPS
 sudo apt-get update
